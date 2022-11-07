@@ -11,7 +11,9 @@ const App = () => {
     return(
         <FeedbackProvider>
             <Header />
-            <FeedbackList />
+            <div className='container'>
+                <FeedbackList />
+            </div>
         </FeedbackProvider>
     )
 }
