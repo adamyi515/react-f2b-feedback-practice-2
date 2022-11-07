@@ -1,0 +1,9 @@
+.feedback-rating {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.feedback-rating label {
+    margin-left: 5px;
+}
