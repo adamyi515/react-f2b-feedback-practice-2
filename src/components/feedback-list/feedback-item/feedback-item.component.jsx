@@ -9,8 +9,8 @@ const FeedbackItem = ({ item }) => {
                 <p>{ rating }</p>
             </div>
             <div className='feedback-item__btns'>
-                <button className='btn'>EDIT</button>
-                <button className='btn'>DELETE</button>
+                <button className='feedback-item__btn'>EDIT</button>
+                <button className='feedback-item__btn'>DELETE</button>
             </div>
             <p>
                 { item.text }
