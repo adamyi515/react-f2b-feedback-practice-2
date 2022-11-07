@@ -13,8 +13,12 @@ const FeedbackItem = ({ item }) => {
     const handleDeleteFeedbackItem = async () => {
         if(window.confirm('Are you sure you want to delete?')) {
             await deleteFeedbackItem(id);
-            dispatch({ type: 'DELETE_FEEDBACK', payload: id })
+            dispatch({ type: 'DELETE_FEEDBACK', payload: id });
         }
+    }
+
+    const handleEdit = () => {
+        dispatch({ type: 'EDIT_FEEDBACK', payload: item });
     }
 
     return(
@@ -23,7 +27,7 @@ const FeedbackItem = ({ item }) => {
                 <p>{ rating }</p>
             </div>
             <div className='feedback-item__btns'>
-                <button className='feedback-item__btn'>EDIT</button>
+                <button className='feedback-item__btn' onClick={handleEdit}>EDIT</button>
                 <button className='feedback-item__btn' onClick={handleDeleteFeedbackItem}>DELETE</button>
             </div>
             <p>

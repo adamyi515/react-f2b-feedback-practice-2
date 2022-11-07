@@ -1,8 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './feedback-ratings.style.css';
 
+// Context API
+import { feedbackContext } from '../../../context/feedback.context';
+
 const FeedbackRatings = ({ selectRating }) => {
+    // Local state
     const [rating, setRating] = useState(10);
+
+    // Global state
+    const { feedback } = useContext(feedbackContext);
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Lifecycle method
+    useEffect(() => {
+        if(feedback.isEditing){
+            setRating(feedback.item.rating);
+        }
+    }, [feedback])
+
 
     const handleSelect = ev => {
         setRating(+ev.target.value);

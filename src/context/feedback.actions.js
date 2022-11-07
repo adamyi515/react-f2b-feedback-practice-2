@@ -17,6 +17,19 @@ const addFeedbackItem = async (feedbackItem) => {
     return data;
 }
 
+const updateFeedbackItem = async (updatedFeedbackItem, id) => {
+    const response = await fetch(`http://localhost:4000/feedback/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedFeedbackItem)
+    });
+
+    const data = await response.json();
+    return data;
+}
+
 const deleteFeedbackItem = async (id) => {
     await fetch(`http://localhost:4000/feedback/${id}`, {
         method: 'DELETE'
@@ -27,5 +40,6 @@ const deleteFeedbackItem = async (id) => {
 export {
     getFeedbacks,
     addFeedbackItem,
-    deleteFeedbackItem
+    deleteFeedbackItem,
+    updateFeedbackItem
 };

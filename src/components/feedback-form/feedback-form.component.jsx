@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './feedback-form.style.css';
 
 // Components
@@ -6,12 +6,22 @@ import FeedbackRatings from './feedback-rating/feedback-ratings.component';
 
 // Context
 import { feedbackContext } from '../../context/feedback.context';
-import { addFeedbackItem } from '../../context/feedback.actions';
+import { addFeedbackItem, updateFeedbackItem } from '../../context/feedback.actions';
 
 const FeedbackForm = () => {
     const [text, setText] = useState('');
     const [rating, setRating] = useState(10);
     const { dispatch, feedback } = useContext(feedbackContext)
+
+    // Lifecycle method ////////////////////////////////////////////////
+    useEffect(() => {
+        if(feedback.isEditing){
+            setText(feedback.item.text);
+            setRating(feedback.item.rating);
+        }
+    }, [feedback]);
+
+
 
     // EVENT HANDLERS ////////////////////////////////////////////////////////////////////////
     const handleChange = ev => {
@@ -25,10 +35,15 @@ const FeedbackForm = () => {
             rating
         };
 
-        if(text.length > 10){
+        if(text.length > 10 && feedback.isEditing !== true){
             const newFeedbackItem = await addFeedbackItem(formData);
             dispatch({ type: 'ADD_FEEDBACK', payload: newFeedbackItem });
             setText('');
+        }
+
+        if(text.length > 10 && feedback.isEditing){
+            const updatedFeedbackItem = await updateFeedbackItem(formData, feedback.item.id);
+            dispatch({ type: 'UPDATE_FEEDBACK', payload: updatedFeedbackItem });
         }
 
         
